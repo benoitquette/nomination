@@ -1,0 +1,21 @@
+version: '2'
+services:
+  nomination-www:
+    image: nomination:1.0.0
+    build: .
+    container_name: nomination-www
+    command: npm run start
+    restart: always
+    ports:
+     - 3000:3000
+    depends_on:
+     - nomination-db
+  nomination-db:
+    image: mongo:3.3.6
+    container_name: nomination-db
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - /var/lib/mongo:/data/db
+      - /etc/mongo:/data/configdb
